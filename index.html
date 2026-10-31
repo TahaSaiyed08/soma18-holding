@@ -1,32 +1,123 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <title>Soma18 - Our new site is coming soon.</title>
-  <style>
-    html, body { height: 100%; margin: 0; }
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #faf8f3;
-      color: #14342b;
-      font-family: Georgia, "Times New Roman", serif;
-      text-align: center;
-    }
-    main { max-width: 36rem; padding: 2rem 1.25rem; }
-    h1 { margin: 0 0 1rem; font-size: clamp(2rem, 8vw, 3rem); font-weight: 400; line-height: 1.15; }
-    p { margin: 0 0 1rem; font-size: clamp(1.05rem, 3.6vw, 1.25rem); line-height: 1.6; }
-    a { color: #14342b; text-underline-offset: 3px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Soma18 - Coming Soon</title>
+<style>
+  :root{--green:#14342b;--gold:#9a6a1b;--sage:#8fae96;--cream:#faf8f3}
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:radial-gradient(ellipse at 50% 35%,#fffdf8 0%,var(--cream) 55%,#f1ece0 100%);
+    color:var(--green);
+    font-family:Georgia,"Times New Roman",serif;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:24px;overflow:hidden;
+  }
+  .orb{
+    --size:min(70vw,300px);
+    position:relative;width:var(--size);height:var(--size);
+    display:grid;place-items:center;margin-bottom:34px;
+  }
+  .ring{
+    position:absolute;inset:14%;border-radius:50%;
+    border:1.5px solid var(--sage);opacity:0;
+    animation:ring 8s ease-in-out infinite;
+  }
+  .ring:nth-child(2){animation-delay:-1.2s}
+  .ring:nth-child(3){animation-delay:-2.4s}
+  @keyframes ring{
+    0%{transform:scale(.55);opacity:0}
+    25%{opacity:.7}
+    50%{transform:scale(1.15);opacity:.35}
+    100%{transform:scale(.55);opacity:0}
+  }
+  .core{
+    position:relative;width:46%;height:46%;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#3f7a64 0%,var(--green) 70%);
+    box-shadow:0 0 50px rgba(20,52,43,.25),0 0 120px rgba(143,174,150,.35);
+    display:grid;place-items:center;
+    animation:core 8s ease-in-out infinite;
+  }
+  @keyframes core{
+    0%,100%{transform:scale(.8)}
+    50%{transform:scale(1.12)}
+  }
+  .label{
+    position:absolute;color:#f4efe2;font-size:.8rem;letter-spacing:.18em;
+    text-transform:uppercase;opacity:0;
+  }
+  .in{animation:inl 8s ease-in-out infinite}
+  .out{animation:outl 8s ease-in-out infinite}
+  @keyframes inl{0%{opacity:0}8%{opacity:1}42%{opacity:1}50%,100%{opacity:0}}
+  @keyframes outl{0%,50%{opacity:0}58%{opacity:1}92%{opacity:1}100%{opacity:0}}
+  .dots{position:absolute;inset:0;animation:spin 90s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .dot{
+    position:absolute;top:50%;left:50%;width:9px;height:9px;margin:-4.5px;
+    border-radius:50%;background:var(--gold);
+    transform:rotate(calc(var(--i) * 20deg)) translateY(calc(var(--size) / -2 + 5px));
+    animation:glow 4s ease-in-out infinite;
+    animation-delay:calc(var(--i) * -.222s);
+  }
+  @keyframes glow{
+    0%,100%{opacity:.22;scale:.7}
+    50%{opacity:1;scale:1.35}
+  }
+  h1{
+    margin:0;font-weight:700;letter-spacing:.02em;
+    font-size:clamp(2.6rem,9vw,4rem);
+    animation:rise 1.4s ease-out both;
+  }
+  h1 span{color:var(--gold)}
+  .tag{
+    margin:.6rem 0 0;font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--gold);animation:rise 1.4s .25s ease-out both;
+  }
+  .soon{
+    margin:1.6rem 0 0;font-size:1.25rem;animation:rise 1.4s .5s ease-out both;
+  }
+  .mail{
+    margin:.7rem 0 0;font-size:.95rem;animation:rise 1.4s .75s ease-out both;
+  }
+  .mail a{color:var(--green);text-decoration-color:var(--gold);text-underline-offset:4px}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important}
+    .ring{opacity:.4}
+    .core{transform:none}
+    .in{opacity:1}
+    .dot{opacity:.8}
+  }
+</style>
 </head>
 <body>
-  <main>
-    <h1>Soma18</h1>
-    <p>Our new site is coming soon.</p>
-    <p>Questions? <a href="mailto:hello@soma18.ca">hello@soma18.ca</a></p>
-  </main>
+  <div class="orb" aria-hidden="true">
+    <div class="dots" id="dots"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="core">
+      <span class="label in">Breathe in</span>
+      <span class="label out">Breathe out</span>
+    </div>
+  </div>
+  <h1>Soma<span>18</span></h1>
+  <p class="tag">18 minutes to rewire mind + body</p>
+  <p class="soon">Our new site is coming soon.</p>
+  <p class="mail"><a href="mailto:hello@soma18.ca">hello@soma18.ca</a></p>
+  <script>
+    (function(){
+      var box=document.getElementById('dots');
+      for(var i=0;i<18;i++){
+        var d=document.createElement('div');
+        d.className='dot';
+        d.style.setProperty('--i',i);
+        box.appendChild(d);
+      }
+    })();
+  </script>
 </body>
 </html>
